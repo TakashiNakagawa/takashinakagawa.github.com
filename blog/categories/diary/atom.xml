@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: diary | My Octopress Blog]]></title>
+  <link href="http://TakashiNakagawa.github.io/blog/categories/diary/atom.xml" rel="self"/>
+  <link href="http://TakashiNakagawa.github.io/"/>
+  <updated>2013-05-24T23:13:10+09:00</updated>
+  <id>http://TakashiNakagawa.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[今日からOctopress]]></title>
+    <link href="http://TakashiNakagawa.github.io/blog/2013/05/17/hello/"/>
+    <updated>2013-05-17T10:03:00+09:00</updated>
+    <id>http://TakashiNakagawa.github.io/blog/2013/05/17/hello</id>
+    <content type="html"><![CDATA[<h1>Octopressを使いはじめる</h1>
+
+<p>以前もちょっとやっていたことがあったけども途中で止めてしまった。<br/>
+また再開することに。<br/>
+ここには技術的な事を書いて行きたいと思う。</p>
+
+<p>何はともあれOctopressに投稿するための作業をメモしておく</p>
+
+<pre><code>$ rake new_post["test"] # 新規記事を作成  
+$ rake preview # preview, localhost:4000にアクセス  
+$ rake generate # convert to html  
+$ rake deploy # publish  
+</code></pre>
+
+<p>次回はOctopressのレイアウトを変更の仕方について調べたい</p>
+]]></content>
+  </entry>
+  
+</feed>
