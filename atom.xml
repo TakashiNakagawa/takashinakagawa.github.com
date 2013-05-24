@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://TakashiNakagawa.github.io/atom.xml" rel="self"/>
   <link href="http://TakashiNakagawa.github.io/"/>
-  <updated>2013-05-25T08:47:54+09:00</updated>
+  <updated>2013-05-25T08:53:52+09:00</updated>
   <id>http://TakashiNakagawa.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[theme]]></title>
+    <link href="http://TakashiNakagawa.github.io/blog/2013/05/25/theme/"/>
+    <updated>2013-05-25T08:49:00+09:00</updated>
+    <id>http://TakashiNakagawa.github.io/blog/2013/05/25/theme</id>
+    <content type="html"><![CDATA[<h1>Octopressのテーマの変更方法</h1>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">こちらのリンク先</a>から選んで変更するだけ</p>
+
+<p>今適用しているテーマに変更する場合は、</p>
+
+<pre><code>cd octopress
+git clone git://github.com/sevenadrian/foxslide.git .themes/foxslide
+rake install['foxslide']
+rake generate
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mastering OpenCV 8章]]></title>
