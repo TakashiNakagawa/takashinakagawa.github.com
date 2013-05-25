@@ -7,73 +7,91 @@
   <meta charset="utf-8">
   <title>Mastering OpenCV 8章 - My Octopress Blog</title>
   <meta name="author" content="Your Name">
-  <link rel="author" href="humans.txt">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  
-    
   
   <meta name="description" content="Chapter 8: Face Recognition using Eigenfaces or Fisherfaces 概要 Mastering Opencv with Practical Computer Vision Projectsの8章を読んでみた。 &hellip;">
   
+
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://TakashiNakagawa.github.io/blog/2013/05/17/opencv8/">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link rel="canonical" href="http://TakashiNakagawa.github.io/blog/2013/05/17/opencv8">
+  <link href="/favicon.ico" rel="icon">
+  
+  <link href="/assets/bootstrap/css/spacelab.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/bootstrap/css/custom.css" rel="stylesheet" type="text/css">
+  <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+  
   <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
-  <meta name="og:type" content="website" />
-  <meta name="og:site_name" content="My Octopress Blog" />
-  <meta name="og:title" content="Mastering OpenCV 8章" />
-  <meta name="og:description" content="Chapter 8: Face Recognition using Eigenfaces or Fisherfaces 概要 Mastering Opencv with Practical Computer Vision Projectsの8章を読んでみた。 &hellip;" />
-  <meta name="og:url" content="http://TakashiNakagawa.github.io/blog/2013/05/17/opencv8/"/>
-  <meta name="url" content="http://TakashiNakagawa.github.io/blog/2013/05/17/opencv8/">
   
-  <meta name="subject" content=""/>
-  <meta name="category" content=""/>
-  
-  <meta name="distribution" content="global">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
   
 
 </head>
 
-<body   >
-  <nav role="navigation"><div class="navbar">
-  <div class="navbar-inner">
-    <a class="brand" href="/">My Octopress Blog</a>
-    <ul class="nav">
-      <li><a href="/">Home</a></li>
-      <li><a href="/blog/archives">Archives</a></li>
-    </ul>
-    <ul class="nav" data-subscription="rss">
-      <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-      
-    </ul>
-      
-    <form class="navbar-form" action="http://google.com/search" method="get">
-      <fieldset role="search">
-        <input type="hidden" name="q" value="site:TakashiNakagawa.github.io" />
-        <input class="span2" type="text" name="q" results="0" placeholder="Search"/>
-      </fieldset>
-    </form>
-      
-    
-  </div>
-</div>
-</nav>
-  <div class="wrapper_single">
-    <div class="container">
-      <article class="span8 offset2" role="article">
-        <div class="article-format">
+<body    data-spy="scroll">
 
+  <div class="container">
+    <header class="jumbotron subhead" id="overview">
+      
+<div class="subscribe">
+  <table>
+    <tr>
+      <td><span>Get Updates: &nbsp;</span></td>
+      
+      
+      <td><a href="/atom.xml" class="btn"><i class="icon-cog"></i> By RSS</a></td>
+      
+      
+    </tr>
+  </table>
+</div>
+
+<h1 class="title">My Octopress Blog</h1>
+
+  <p class="lead">A blogging framework for hackers.</p>
+
+
+      <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container" style="width: auto;">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <div class="nav-collapse">
+                <ul class="nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog/archives">Blog</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+
+        
+          <form action="http://google.com/search" method="get" class="navbar-search pull-left">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:TakashiNakagawa.github.io" />
+              <input type="text" name="q" results="0" placeholder="Search" class="search-query span2" />
+            </fieldset>
+          </form>
+        
+        
+      </div><!-- /.nav-collapse -->
+    </div>
+  </div><!-- /navbar-inner -->
+</div>
+
+    </header>
+    <div id="main">
+      <div id="content">
+        <div class="row">
+  
+  <div class="span8">
+    
   <header>
     
       <h1 class="entry-title">Mastering OpenCV 8章</h1>
@@ -81,15 +99,6 @@
     
       <p class="meta">
         
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Your Name</span></span>
-  
-
- - 
-        
 
 
 
@@ -101,16 +110,15 @@
   
 
 
-<time datetime="2013-05-17T17:25:00+09:00" pubdate data-updated="true">May 17<span>th</span>, 2013</time> - 
-        
-
-
+<time datetime="2013-05-17T17:25:00+09:00" pubdate data-updated="true">May 17<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
+  
+  
   <div class="entry-content"><h2><em>Chapter 8: Face Recognition using Eigenfaces or Fisherfaces</em></h2>
 
 <h3>概要</h3>
@@ -278,19 +286,17 @@ that the training set of each person covers the hull range of lighting condition
 facial expressions, and angles that you expect to test with.</p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
 
 
-  
-    <span class="byline author vcard">by <span class="fn">Your Name</span></span>
+    <footer>
+      <p class="meta">
+        
   
 
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
 
-      
+        
 
 
 
@@ -303,116 +309,82 @@ facial expressions, and angles that you expect to test with.</p>
 
 
 <time datetime="2013-05-17T17:25:00+09:00" pubdate data-updated="true">May 17<span>th</span>, 2013</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  <div class="addthis_toolbox addthis_default_style ">
-  
-  
-  <a class="addthis_button_tweet"></a>
-  
-  
-  <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
-</div>
-
-    
-    
-      <a class="pull-left" href="/blog/2013/05/17/hello/" title="Previous Post: 今日からOctopress">&laquo; 今日からOctopress</a>
-    
-    
-      <a class="pull-right" href="/blog/2013/05/25/theme/" title="Next Post: Octopressのテーマ設定">Octopressのテーマ設定 &raquo;</a>
-    
-  </footer>
-
-</div>
-
         
-      </article>
+
+
+      </p>
+      
+        <div class="sharing">
+  <br/>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://TakashiNakagawa.github.io/blog/2013/05/17/opencv8/" data-via="" data-counturl="http://TakashiNakagawa.github.io/blog/2013/05/17/opencv8/" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+      <p class="meta">
+        
+          <a class="basic-alignment pull-left" href="/blog/2013/05/17/hello/" title="Previous Post: 今日からOctopress">&laquo; 今日からOctopress</a>
+        
+        
+          <a class="basic-alignment pull-right" href="/blog/2013/05/25/theme/" title="Next Post: Octopressのテーマ設定">Octopressのテーマ設定 &raquo;</a>
+        
+      </p>
+    </footer>
+    
+    
+  </div>
+
+  
+    
+  <div class="span sidebar">
+    <div class="well">
+      
+        <section>
+  <h2>Recent Posts</h2>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/25/theme/">Octopressのテーマ設定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/opencv8/">Mastering OpenCV 8章</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/hello/">今日からOctopress</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+      
     </div>
   </div>
-  <div id="footer-widgets">
-  <div class="container">
-    <div class="row">
-  <div class="span3">
-    <h2>recent posts</h2>
-    <ul class="recent_posts">
-      
-        <li>
-          <a href="/blog/2013/05/25/sicp/">sicp</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2013/05/25/theme/">Octopressのテーマ設定</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2013/05/17/opencv8/">Mastering OpenCV 8章</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2013/05/17/hello/">今日からOctopress</a>
-        </li>
-      
-    </ul>
-    <h2><a href="/blog/archives">archives</a></h2>
-  </div>
-  <div class="span3">
-    
-
-  </div>
-  <div class="span4">
-    
-
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
+  
 </div>
 
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">
-  <a href="/">My Octopress Blog</a>
-  - Copyright &copy; 2013 - Your Name
-</p>
-<p class="pull-right">
-  <span>Powered by <a href="http://octopress.org/">Octopress</a>.</span>
-  
-    <span>Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.</span>
-  
-</p>
 
-  </div>
+      </div>
+    </div>
+    <footer class="footer"><p>
+  Copyright &copy; 2013 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> -
+  
+    <span class="credit">Theme by <a href="http://brianarmstrong.org">Brian Armstrong</a></span>
+  
+</p>
 </footer>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
-<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
-<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
-<script src="/javascripts/custom.js" type="text/javascript"></script>
+    
 
 
 
@@ -420,7 +392,10 @@ facial expressions, and angles that you expect to test with.</p>
 
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
   <script type="text/javascript">
     (function(){
       var twitterWidgets = document.createElement('script');
@@ -429,10 +404,13 @@ facial expressions, and angles that you expect to test with.</p>
       twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
+    
+    $(document).ready(function(){
+      getTwitterFeed("", , );
+    });
   </script>
 
 
-
-
+  </div>
 </body>
 </html>
