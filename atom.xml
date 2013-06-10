@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://TakashiNakagawa.github.io/atom.xml" rel="self"/>
   <link href="http://TakashiNakagawa.github.io/"/>
-  <updated>2013-05-25T09:09:28+09:00</updated>
+  <updated>2013-06-10T21:31:28+09:00</updated>
   <id>http://TakashiNakagawa.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,119 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[sicp2]]></title>
+    <link href="http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2/"/>
+    <updated>2013-06-10T20:41:00+09:00</updated>
+    <id>http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2</id>
+    <content type="html"><![CDATA[<h2>問1.23</h2>
+
+<blockquote><p>本節の始めのsmalleset-divisorは多くの不要な計算をする：数が２で割切れるか調べた後は、より大きい偶数で割けれるか調べるのは無意味である。<br/>
+test-divisorが使う値は、2,3,4,5,…であるべきだ。<br/>
+この変更を実装するため、入力が２なら３を返し、そうでなければ入力に２足したものを返す手続きnextを定義せよ。<br/>
+smallest-divisorを(+ test-divisor 1)ではなく、(next test-divisor)を使うように修正せよ。<br/>
+このように修正したsmallest-divisorにしたtimed-prime-testで、問題1.22で見つけた12個の素数をテストせよ。<br/>
+この修正はテストのステップを半分にしたので、２倍速く走る事が期待される。この期待は確かめられるか。<br/>
+そうでなければ、得られた２つのアルゴリズムの速度の比はどうであったか。それが２と違う事情を説明せよ。</p></blockquote>
+
+<h3>解答</h3>
+
+<p>nextの実装はこんな感じ</p>
+
+<pre><code>(define (next input)
+  (cond
+    ((= input 2) 3)
+    (else (+ input 2))))
+</code></pre>
+
+<p><img src="../images/blog/graph.png" alt="alt title" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[opencv]]></title>
+    <link href="http://TakashiNakagawa.github.io/blog/2013/05/29/opencv/"/>
+    <updated>2013-05-29T10:39:00+09:00</updated>
+    <id>http://TakashiNakagawa.github.io/blog/2013/05/29/opencv</id>
+    <content type="html"><![CDATA[<h1>opencvの特徴点対応付け</h1>
+
+<p><a href="http://miyabiarts.wordpress.com/2011/01/21/opencv%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E7%89%B9%E5%BE%B4%E7%82%B9%E5%AF%BE%E5%BF%9C%E4%BB%98%E3%81%91/">ここのページ</a>
+を参考にさせて頂いた</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;opencv2/highgui/highgui.hpp&gt;
+#include &lt;opencv2/nonfree/nonfree.hpp&gt;
+#include &lt;opencv2/legacy/legacy.hpp&gt;    
+
+int main(int argc, char *argv[])
+{
+    //画像読み込み
+    cv::Mat colorImg1 = cv::imread("lady1.jpeg");
+    cv::Mat colorImg2 = cv::imread("lady2.jpeg");
+    if(colorImg1.empty() || colorImg2.empty()){
+        std::cout &lt;&lt; "No Image" &lt;&lt; std::endl;
+        return -1;
+    }
+
+    //特徴点抽出用のグレー画像用意
+    cv::Mat grayImg1, grayImg2;
+    cv::cvtColor(colorImg1, grayImg1, CV_BGR2GRAY);
+    cv::normalize(grayImg1, grayImg1, 0, 255, cv::NORM_MINMAX);
+    cv::cvtColor(colorImg2, grayImg2, CV_BGR2GRAY);
+    cv::normalize(grayImg2, grayImg2, 0, 255, cv::NORM_MINMAX);
+
+    //SIFT
+    //    cv::SiftFeatureDetector detector;
+    //    cv::SiftDescriptorExtractor extractor;
+    //SURF
+    cv::SurfFeatureDetector detector(1000);
+    cv::SurfDescriptorExtractor extractor;
+
+    //画像から特徴点を検出
+    std::vector&lt;cv::KeyPoint&gt; keypoints1;
+    detector.detect(grayImg1, keypoints1);
+    std::vector&lt;cv::KeyPoint&gt; keypoints2;
+    detector.detect(grayImg2, keypoints2);
+
+    //画像の特徴点における特徴量を抽出
+    cv::Mat descriptors1;
+    extractor.compute(grayImg1, keypoints1, descriptors1);
+    cv::Mat descriptors2;
+    extractor.compute(grayImg2, keypoints2, descriptors2);
+
+    //特徴点の対応付け
+    std::vector&lt;cv::DMatch&gt; matches;
+    cv::BruteForceMatcher&lt;cv::L2&lt;float&gt; &gt; matcher;
+    matcher.match(descriptors1, descriptors2, matches);
+
+    //ソートしたn番目までの対応線を表示させる。nth_elementは要素を基準要素よりも手前に移動させるある種のソート
+    int N=50;
+    nth_element(matches.begin(), matches.begin()+N-1, matches.end());
+    matches.erase(matches.begin()+N, matches.end());
+
+    //対応づけされた画像の用意
+    cv::Mat matchedImg;
+    cv::drawMatches(colorImg1, keypoints1, colorImg2, keypoints2, matches, matchedImg);
+
+    /// 画像を表示するウィンドウの名前，プロパティ
+    // CV_WINDOW_AUTOSIZE : ウィンドウサイズを画像サイズに合わせる
+    // CV_WINDOW_FREERATIO : ウィンドウのアスペクト比を固定しない
+    cv::namedWindow("image", CV_WINDOW_AUTOSIZE|CV_WINDOW_FREERATIO);
+    // ウィンドウ名でウィンドウを指定して，そこに画像を描画
+    cv::imshow("image", matchedImg);
+
+    // キー入力を（無限に）待つ
+    cv::waitKey(0);
+    return 0;
+}
+</code></pre>
+
+<p>画像の読み込み時にフルパスでないとなぜか読み込めなかった。<br/>
+とりあえずworking directoryを変更する事で対応<br/>
+Edit Schemeから変更する（<a href="http://d.hatena.ne.jp/nakamura001/20120729/1343520758">こちらのサイトを参考</a>)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopressのテーマ設定]]></title>

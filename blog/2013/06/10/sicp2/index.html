@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopressのテーマ設定 - My Octopress Blog</title>
+  <title>sicp2 - My Octopress Blog</title>
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="Octopressのテーマの変更方法 こちらのリンク先から選んで変更するだけ 今適用しているテーマに変更する場合は、 cd octopress
-git clone git://github.com/sevenadrian/foxslide.git .themes/foxslide
-rake &hellip;">
+  <meta name="description" content="問1.23 本節の始めのsmalleset-divisorは多くの不要な計算をする：数が２で割切れるか調べた後は、より大きい偶数で割けれるか調べるのは無意味である。
+test-divisorが使う値は、2,3,4,5,…であるべきだ。
+この変更を実装するため、入力が２なら３を返し、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ rake &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://TakashiNakagawa.github.io/blog/2013/05/25/theme">
+  <link rel="canonical" href="http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2">
   <link href="/favicon.ico" rel="icon">
   
   <link href="/assets/bootstrap/css/spacelab.min.css" rel="stylesheet" type="text/css">
@@ -96,7 +96,7 @@ rake &hellip;">
     
   <header>
     
-      <h1 class="entry-title">Octopressのテーマ設定</h1>
+      <h1 class="entry-title">Sicp2</h1>
     
     
       <p class="meta">
@@ -112,7 +112,7 @@ rake &hellip;">
   
 
 
-<time datetime="2013-05-25T08:49:00+09:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+<time datetime="2013-06-10T20:41:00+09:00" pubdate data-updated="true">Jun 10<span>th</span>, 2013</time>
         
       </p>
     
@@ -121,17 +121,27 @@ rake &hellip;">
 
   
   
-  <div class="entry-content"><h1>Octopressのテーマの変更方法</h1>
+  <div class="entry-content"><h2>問1.23</h2>
 
-<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">こちらのリンク先</a>から選んで変更するだけ</p>
+<blockquote><p>本節の始めのsmalleset-divisorは多くの不要な計算をする：数が２で割切れるか調べた後は、より大きい偶数で割けれるか調べるのは無意味である。<br/>
+test-divisorが使う値は、2,3,4,5,…であるべきだ。<br/>
+この変更を実装するため、入力が２なら３を返し、そうでなければ入力に２足したものを返す手続きnextを定義せよ。<br/>
+smallest-divisorを(+ test-divisor 1)ではなく、(next test-divisor)を使うように修正せよ。<br/>
+このように修正したsmallest-divisorにしたtimed-prime-testで、問題1.22で見つけた12個の素数をテストせよ。<br/>
+この修正はテストのステップを半分にしたので、２倍速く走る事が期待される。この期待は確かめられるか。<br/>
+そうでなければ、得られた２つのアルゴリズムの速度の比はどうであったか。それが２と違う事情を説明せよ。</p></blockquote>
 
-<p>今適用しているテーマに変更する場合は、</p>
+<h3>解答</h3>
 
-<pre><code>cd octopress
-git clone git://github.com/sevenadrian/foxslide.git .themes/foxslide
-rake install['foxslide']
-rake generate
+<p>nextの実装はこんな感じ</p>
+
+<pre><code>(define (next input)
+  (cond
+    ((= input 2) 3)
+    (else (+ input 2))))
 </code></pre>
+
+<p><img src="../images/blog/graph.png" alt="alt title" /></p>
 </div>
 
   
@@ -156,7 +166,7 @@ rake generate
   
 
 
-<time datetime="2013-05-25T08:49:00+09:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+<time datetime="2013-06-10T20:41:00+09:00" pubdate data-updated="true">Jun 10<span>th</span>, 2013</time>
         
 
 
@@ -165,7 +175,7 @@ rake generate
         <div class="sharing">
   <br/>
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://TakashiNakagawa.github.io/blog/2013/05/25/theme/" data-via="" data-counturl="http://TakashiNakagawa.github.io/blog/2013/05/25/theme/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2/" data-via="" data-counturl="http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2/" >Tweet</a>
   
   
   
@@ -174,10 +184,8 @@ rake generate
       
       <p class="meta">
         
-          <a class="basic-alignment pull-left" href="/blog/2013/05/17/opencv8/" title="Previous Post: Mastering OpenCV 8章">&laquo; Mastering OpenCV 8章</a>
+          <a class="basic-alignment pull-left" href="/blog/2013/05/29/opencv/" title="Previous Post: opencv">&laquo; opencv</a>
         
-        
-          <a class="basic-alignment pull-right" href="/blog/2013/05/29/opencv/" title="Next Post: opencv">opencv &raquo;</a>
         
       </p>
     </footer>

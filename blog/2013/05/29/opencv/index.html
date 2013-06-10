@@ -5,13 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopressのテーマ設定 - My Octopress Blog</title>
+  <title>opencv - My Octopress Blog</title>
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content="Octopressのテーマの変更方法 こちらのリンク先から選んで変更するだけ 今適用しているテーマに変更する場合は、 cd octopress
-git clone git://github.com/sevenadrian/foxslide.git .themes/foxslide
-rake &hellip;">
+  <meta name="description" content="opencvの特徴点対応付け ここのページ
+を参考にさせて頂いた #include &lt;iostream&gt;
+#include &lt;opencv2/highgui/highgui.hpp&gt;
+#include &lt;opencv2/nonfree/nonfree.hpp&gt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +21,7 @@ rake &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://TakashiNakagawa.github.io/blog/2013/05/25/theme">
+  <link rel="canonical" href="http://TakashiNakagawa.github.io/blog/2013/05/29/opencv">
   <link href="/favicon.ico" rel="icon">
   
   <link href="/assets/bootstrap/css/spacelab.min.css" rel="stylesheet" type="text/css">
@@ -96,7 +97,7 @@ rake &hellip;">
     
   <header>
     
-      <h1 class="entry-title">Octopressのテーマ設定</h1>
+      <h1 class="entry-title">Opencv</h1>
     
     
       <p class="meta">
@@ -112,7 +113,7 @@ rake &hellip;">
   
 
 
-<time datetime="2013-05-25T08:49:00+09:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+<time datetime="2013-05-29T10:39:00+09:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time>
         
       </p>
     
@@ -121,17 +122,82 @@ rake &hellip;">
 
   
   
-  <div class="entry-content"><h1>Octopressのテーマの変更方法</h1>
+  <div class="entry-content"><h1>opencvの特徴点対応付け</h1>
 
-<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">こちらのリンク先</a>から選んで変更するだけ</p>
+<p><a href="http://miyabiarts.wordpress.com/2011/01/21/opencv%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E7%89%B9%E5%BE%B4%E7%82%B9%E5%AF%BE%E5%BF%9C%E4%BB%98%E3%81%91/">ここのページ</a>
+を参考にさせて頂いた</p>
 
-<p>今適用しているテーマに変更する場合は、</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;opencv2/highgui/highgui.hpp&gt;
+#include &lt;opencv2/nonfree/nonfree.hpp&gt;
+#include &lt;opencv2/legacy/legacy.hpp&gt;    
 
-<pre><code>cd octopress
-git clone git://github.com/sevenadrian/foxslide.git .themes/foxslide
-rake install['foxslide']
-rake generate
+int main(int argc, char *argv[])
+{
+    //画像読み込み
+    cv::Mat colorImg1 = cv::imread("lady1.jpeg");
+    cv::Mat colorImg2 = cv::imread("lady2.jpeg");
+    if(colorImg1.empty() || colorImg2.empty()){
+        std::cout &lt;&lt; "No Image" &lt;&lt; std::endl;
+        return -1;
+    }
+
+    //特徴点抽出用のグレー画像用意
+    cv::Mat grayImg1, grayImg2;
+    cv::cvtColor(colorImg1, grayImg1, CV_BGR2GRAY);
+    cv::normalize(grayImg1, grayImg1, 0, 255, cv::NORM_MINMAX);
+    cv::cvtColor(colorImg2, grayImg2, CV_BGR2GRAY);
+    cv::normalize(grayImg2, grayImg2, 0, 255, cv::NORM_MINMAX);
+
+    //SIFT
+    //    cv::SiftFeatureDetector detector;
+    //    cv::SiftDescriptorExtractor extractor;
+    //SURF
+    cv::SurfFeatureDetector detector(1000);
+    cv::SurfDescriptorExtractor extractor;
+
+    //画像から特徴点を検出
+    std::vector&lt;cv::KeyPoint&gt; keypoints1;
+    detector.detect(grayImg1, keypoints1);
+    std::vector&lt;cv::KeyPoint&gt; keypoints2;
+    detector.detect(grayImg2, keypoints2);
+
+    //画像の特徴点における特徴量を抽出
+    cv::Mat descriptors1;
+    extractor.compute(grayImg1, keypoints1, descriptors1);
+    cv::Mat descriptors2;
+    extractor.compute(grayImg2, keypoints2, descriptors2);
+
+    //特徴点の対応付け
+    std::vector&lt;cv::DMatch&gt; matches;
+    cv::BruteForceMatcher&lt;cv::L2&lt;float&gt; &gt; matcher;
+    matcher.match(descriptors1, descriptors2, matches);
+
+    //ソートしたn番目までの対応線を表示させる。nth_elementは要素を基準要素よりも手前に移動させるある種のソート
+    int N=50;
+    nth_element(matches.begin(), matches.begin()+N-1, matches.end());
+    matches.erase(matches.begin()+N, matches.end());
+
+    //対応づけされた画像の用意
+    cv::Mat matchedImg;
+    cv::drawMatches(colorImg1, keypoints1, colorImg2, keypoints2, matches, matchedImg);
+
+    /// 画像を表示するウィンドウの名前，プロパティ
+    // CV_WINDOW_AUTOSIZE : ウィンドウサイズを画像サイズに合わせる
+    // CV_WINDOW_FREERATIO : ウィンドウのアスペクト比を固定しない
+    cv::namedWindow("image", CV_WINDOW_AUTOSIZE|CV_WINDOW_FREERATIO);
+    // ウィンドウ名でウィンドウを指定して，そこに画像を描画
+    cv::imshow("image", matchedImg);
+
+    // キー入力を（無限に）待つ
+    cv::waitKey(0);
+    return 0;
+}
 </code></pre>
+
+<p>画像の読み込み時にフルパスでないとなぜか読み込めなかった。<br/>
+とりあえずworking directoryを変更する事で対応<br/>
+Edit Schemeから変更する（<a href="http://d.hatena.ne.jp/nakamura001/20120729/1343520758">こちらのサイトを参考</a>)</p>
 </div>
 
   
@@ -156,7 +222,7 @@ rake generate
   
 
 
-<time datetime="2013-05-25T08:49:00+09:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+<time datetime="2013-05-29T10:39:00+09:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time>
         
 
 
@@ -165,7 +231,7 @@ rake generate
         <div class="sharing">
   <br/>
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://TakashiNakagawa.github.io/blog/2013/05/25/theme/" data-via="" data-counturl="http://TakashiNakagawa.github.io/blog/2013/05/25/theme/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://TakashiNakagawa.github.io/blog/2013/05/29/opencv/" data-via="" data-counturl="http://TakashiNakagawa.github.io/blog/2013/05/29/opencv/" >Tweet</a>
   
   
   
@@ -174,10 +240,10 @@ rake generate
       
       <p class="meta">
         
-          <a class="basic-alignment pull-left" href="/blog/2013/05/17/opencv8/" title="Previous Post: Mastering OpenCV 8章">&laquo; Mastering OpenCV 8章</a>
+          <a class="basic-alignment pull-left" href="/blog/2013/05/25/theme/" title="Previous Post: Octopressのテーマ設定">&laquo; Octopressのテーマ設定</a>
         
         
-          <a class="basic-alignment pull-right" href="/blog/2013/05/29/opencv/" title="Next Post: opencv">opencv &raquo;</a>
+          <a class="basic-alignment pull-right" href="/blog/2013/06/10/sicp2/" title="Next Post: sicp2">sicp2 &raquo;</a>
         
       </p>
     </footer>
