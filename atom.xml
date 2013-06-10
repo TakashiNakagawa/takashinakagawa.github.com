@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://TakashiNakagawa.github.io/atom.xml" rel="self"/>
   <link href="http://TakashiNakagawa.github.io/"/>
-  <updated>2013-06-10T21:31:28+09:00</updated>
+  <updated>2013-06-10T21:45:39+09:00</updated>
   <id>http://TakashiNakagawa.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[sicp2]]></title>
+    <title type="html"><![CDATA[sicp 問1.23]]></title>
     <link href="http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2/"/>
     <updated>2013-06-10T20:41:00+09:00</updated>
     <id>http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2</id>
@@ -38,7 +38,8 @@ smallest-divisorを(+ test-divisor 1)ではなく、(next test-divisor)を使う
     (else (+ input 2))))
 </code></pre>
 
-<p><img src="../images/blog/graph.png" alt="alt title" /></p>
+<p><img src="../images/blog/graph.png" alt="alt title" />
+<img src="http://TakashiNakagawa.github.io/images/blog/graph.png" alt="alt" /></p>
 ]]></content>
   </entry>
   

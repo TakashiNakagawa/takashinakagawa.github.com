@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sicp | My Octopress Blog]]></title>
+  <link href="http://TakashiNakagawa.github.io/blog/categories/sicp/atom.xml" rel="self"/>
+  <link href="http://TakashiNakagawa.github.io/"/>
+  <updated>2013-06-10T21:45:39+09:00</updated>
+  <id>http://TakashiNakagawa.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[sicp 問1.23]]></title>
+    <link href="http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2/"/>
+    <updated>2013-06-10T20:41:00+09:00</updated>
+    <id>http://TakashiNakagawa.github.io/blog/2013/06/10/sicp2</id>
+    <content type="html"><![CDATA[<h2>問1.23</h2>
+
+<blockquote><p>本節の始めのsmalleset-divisorは多くの不要な計算をする：数が２で割切れるか調べた後は、より大きい偶数で割けれるか調べるのは無意味である。<br/>
+test-divisorが使う値は、2,3,4,5,…であるべきだ。<br/>
+この変更を実装するため、入力が２なら３を返し、そうでなければ入力に２足したものを返す手続きnextを定義せよ。<br/>
+smallest-divisorを(+ test-divisor 1)ではなく、(next test-divisor)を使うように修正せよ。<br/>
+このように修正したsmallest-divisorにしたtimed-prime-testで、問題1.22で見つけた12個の素数をテストせよ。<br/>
+この修正はテストのステップを半分にしたので、２倍速く走る事が期待される。この期待は確かめられるか。<br/>
+そうでなければ、得られた２つのアルゴリズムの速度の比はどうであったか。それが２と違う事情を説明せよ。</p></blockquote>
+
+<h3>解答</h3>
+
+<p>nextの実装はこんな感じ</p>
+
+<pre><code>(define (next input)
+  (cond
+    ((= input 2) 3)
+    (else (+ input 2))))
+</code></pre>
+
+<p><img src="../images/blog/graph.png" alt="alt title" />
+<img src="/images/blog/graph.png" alt="alt" /></p>
+]]></content>
+  </entry>
+  
+</feed>
